@@ -8,30 +8,40 @@
       </div>
       <div id='account'>
         <router-link to="/">Home</router-link>
-        <router-link to="/cart">Cart🛒{{count}}</router-link>
-        <!-- <a>🛒Cart({{count}})</a> -->
+        <!-- <router-link to="/cart">Cart🛒{{count}}</router-link> -->
+        <a @click="openModal">🛒Cart({{count}})</a>
       </div>
     </div>
+  </div>
+  <div v-if="showModal">
+  <Cart @close="toggleModal" :open="showModal" />
   </div>
 </template>
 
 <script>
-import Counter from './Counter.vue'
+import Cart from '../views/Cart.vue'
 export default {
-    props: ['count'],
+    props: ['count', 'active'],
   data(){
     return{
-      countCart : 0
+      countCart : 0, showModal: false
     }
   },
   components:{
-    Counter
+     Cart
   },
   methods: {
       getMenu(){
             const records = JSON.parse(localStorage.getItem('menu'));
             this.countCart = records.length;
-        }
+        },
+    openModal(){
+      this.showModal = true
+    },
+    toggleModal(){
+      this.showModal = false
+
+    }
   },
    created(){
         
