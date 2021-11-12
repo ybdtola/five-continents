@@ -1,6 +1,9 @@
 <template>
-<!-- <Counter/> -->
-    <div class="container">
+<!-- <Navbar :count="this.counter" /> -->
+    <!-- <div class="container"> -->
+<transition name="slide">      
+  <div class="backdrop" @click.self="closeModal" v-if="open">
+    <div class="sidenav">
       <div class='ticket'>
         <h2 style="padding: 20px 0 50px"> Shopping Cart ({{this.counter}})</h2>
         <div >
@@ -34,18 +37,24 @@
       </div>
       <button id="order">🛒Check Out</button>
     </div>
-      <Footer />
+    </div>
+    </transition>
+      <!-- <Footer /> -->
 </template>
 
 <script>
-import Footer from '../components/Footer.vue'
+// import Footer from '../components/Footer.vue'
 // import Counter from '../components/Counter.vue'
+// import Navbar from '../components/Navbar.vue'
 export default {
   name: 'Cart',
  components: {
-      Footer, 
-      // Counter
+      // Footer, 
+      // Counter,
+      // Navbar
  },
+ props: ['open'],
+ 
   data() {
     return {
       tickets: {
@@ -106,17 +115,80 @@ export default {
             localStorage.setItem('menu', JSON.stringify(this.cart))
           }
       }
+    },
+    closeModal(){
+      this.$emit('close')
     }
   }
 }
 </script>
 
 <style scoped>
-.container{
+/* .container{
   width: 100%;
   min-height: calc(100vh - 60px);
     margin-bottom: 5%;
+} */
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+    /* display: none; */
 }
+.sidenav{
+        font-size: 80%;
+        background-color: #fff;
+        max-width: 500px;
+        width: 450px;
+        padding: 0 20px;
+        position: fixed;
+        right: 0;
+        top: 0;
+        margin: 0;
+        height: 100%;
+        /* height: calc(100% + 60px); */
+        /* height: -moz-calc(100%); */
+        padding-bottom: 60px;
+        background-color: #fff;
+        z-index: 2;
+        overflow-y: auto;
+        will-change: transform;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+         /* -webkit-transform: translateX(0%);
+        transform: translateX(0%); */
+        /* opacity: 0; */
+        animation: easeIn 0.5s;
+        /* transition: .3s ease-in; */
+}
+
+/* .slide-enter-active{  animation: easeIn 0.5s;}
+.slide-leave-active{animation: easeIn 0.5s reverse;} */
+@keyframes easeIn{
+  0%{
+    -webkit-transform: translateX(105%);
+        transform: translateX(105%);
+  }
+  100%{
+    -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+  }
+}
+/* .open{
+  -webkit-transform: translateX(0%);
+      transform: translateX(0%);
+    
+} */
+.slide-enter, .slide-leave-to{
+      transform: translateX(-105%);opacity: 0} 
+.slide-enter-active, .slide-leave-active{ transition: all .3s ease-in;}
+
+
 .ticket{
   max-width: 500px;
   height: auto;
@@ -153,7 +225,7 @@ ul#list li span:nth-child(1){
 }
 ul#sum > li{
     position: relative;
-    height: 48px;
+    height: auto;
     line-height: 48px;
     border-top: 1px solid #999;
     list-style-type: none;
@@ -216,7 +288,7 @@ button#order{
     border: 1px solid #ffa12f;
     transition: .4s;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 16px;
     cursor: pointer;
 }
 button#order:hover{
