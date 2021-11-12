@@ -12,7 +12,7 @@
   box-sizing: border-box;
   font-family: DejaVuSansMono;
 }
-body{overflow-y: scroll;height: 100vh;width: 100%;}
+body{overflow-y: scroll;height: 100%;width: 100%;}
 
 #app {
   font-family: DejaVuSansMono;
