@@ -68,6 +68,7 @@ export default {
                         {name: 'Chinese', price: 140.00, id:3, cart: false}, 
                         {name: 'Ofada', price: 130.00, id:4, cart: false}
                         ],
+                        baseprice: 350.99,
                         temp: 0,
                         total: []
                 },
@@ -87,6 +88,7 @@ export default {
                         {name: 'z', price: 4.00, id:3, cart: false}, 
                         {name: 'a', price: 3.00, id:4, cart: false}
                         ],
+                        baseprice: 45.99,
                         temp: 0,
                         total: []
                 },
@@ -105,6 +107,7 @@ export default {
                         {name: 'Salad', price: 4.00, id:3, cart: false}, 
                         {name: 'Snail', price: 3.00, id:4, cart: false}
                         ],
+                        baseprice: 55.99,
                         temp: 0,
                         total: []
                 },
@@ -123,6 +126,7 @@ export default {
                         {name: 'Salad', price: 4.00, id:3, cart: false}, 
                         {name: 'Snail', price: 3.00, id:4, cart: false}
                         ],
+                        baseprice: 65.99,
                         temp: 0,
                         total: []
                 },
@@ -141,6 +145,7 @@ export default {
                         {name: 'Salad', price: 4.00, id:3, cart: false}, 
                         {name: 'Snail', price: 3.00, id:4, cart: false}
                         ],
+                        baseprice: 1.99,
                         temp: 0,
                         total: []
                 },
@@ -159,6 +164,7 @@ export default {
                         {name: 'Salad', price: 4.00, id:3, cart: false}, 
                         {name: 'Snail', price: 3.00, id:4, cart: false}
                        ],
+                       baseprice: 0.99,
                         temp: 0,
                         total: []
                 }
