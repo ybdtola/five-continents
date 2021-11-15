@@ -35,7 +35,7 @@
           </ul>
       </div>
       </div>
-      <button id="order">🛒Check Out</button>
+      <button id="order" @click="account">🛒Check Out</button>
     </div>
     </div>
     </transition>
@@ -118,6 +118,9 @@ export default {
     },
     closeModal(){
       this.$emit('close')
+    },
+    account(){
+      this.$router.push({name: 'Account'})
     }
   }
 }
@@ -276,20 +279,23 @@ div#modifier  span#delete:hover{
     background: #ff00001f;
 }
 button#order{
-  margin-top: 30px;
-  width: 100%;
-  max-width: 500px;
-  height: 50px;
-  border: none;
-  outline: none;
+     margin-top: 30px;
+    width: 100%;
+    max-width: 500px;
+    height: 30px;
+    border: none;
+    outline: none;
     padding: .625rem 0.938rem;
     background: #ffa12f;
     border-radius: 5px;
     border: 1px solid #ffa12f;
     transition: .4s;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 12px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 button#order:hover{
   border: 1px solid #ffa12f;
