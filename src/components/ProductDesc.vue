@@ -20,7 +20,7 @@
                             <span @click="add">+</span>
                         </div>
                         <!-- <h4 v-if="temp">${{(getPrice().toFixed(2))}}</h4> -->
-                        <!-- <h4>${{product.price}}</h4> -->
+                        <!-- <h4>${{price}}</h4> -->
                         <h4>&#8358;{{price == 0 ? product.price : price}}</h4>
                         <button class="cart">ADD TO CART</button> 
                     </div>
@@ -66,11 +66,19 @@ import Submenu from './Submenu.vue'
             sub.cart = false
             this.product.total.pop(sub.price)
             }
-
+ this.hold = this.product.total.reduce((x, y) => {
+                    return  x + y
+                }, this.product.baseprice)
+                // this.total = this.product.temp + this.product.price
+                // this.product.total.reduce
+                //  + this.product.price
+                // console.log((this.total).toFixed(2));
+                this.price = this.hold
+                // return this.hold
             // this.product.total.reduce((x, y) => {
             //     return x + y
             //     })
-            return this.product.total
+            // return this.product.total
            },
             // getPrice(){
             //     this.hold = this.product.total.reduce((x, y) => {
@@ -85,8 +93,16 @@ import Submenu from './Submenu.vue'
             add(){
                 this.temp = true
                 this.product.quantity++;
-                this.hold = this.product.quantity * this.product.price
-                console.log(this.product.quantity * this.product.price);
+                if(this.price == 0){
+                this.hold = this.product.quantity * this.product.baseprice
+                }else if(this.price == this.product.baseprice){
+                    console.log(this.price, this.product.baseprice);
+                    this.hold = (this.product.quantity * this.price) - (this.product.quantity * this.product.baseprice)
+                }else if(this.price > this.product.baseprice){
+                    this.hold = this.product.quantity * (this.price - this.product.baseprice)
+                    console.log(this.price, this.product.baseprice);
+                }
+                // console.log(this.product.quantity * this.product.price);
                 // console.log(this.hold);
                 // console.log(this.temp);
                 //   this.hold = this.product.total.reduce((x, y) => {
@@ -94,14 +110,32 @@ import Submenu from './Submenu.vue'
                 // }, this.product.price)
                 //       console.log(this.hold);
                 this.price = this.hold
-                console.log(this.price);
+                // this.product.price = this.hold
+                // console.log(this.price, this.product.baseprice);
                 // return this.hold
                 
             },
             minus(){
-                if(this.product.quantity > 1)
-                this.temp = true
+                  this.temp = true
                 this.product.quantity--;
+                if(this.price == 0){
+                this.hold = this.product.quantity * this.product.baseprice
+                }else{
+                    this.hold = this.product.quantity * this.product.baseprice
+
+                }
+                // console.log(this.product.quantity * this.product.price);
+                // console.log(this.hold);
+                // console.log(this.temp);
+                //   this.hold = this.product.total.reduce((x, y) => {
+                //       return  x + y
+                // }, this.product.price)
+                //       console.log(this.hold);
+                this.price = this.hold
+                this.product.price = this.hold
+                console.log(this.price, this.product.price);
+                // return this.hold
+                
             }
            
         },
