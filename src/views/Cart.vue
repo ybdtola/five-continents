@@ -6,7 +6,7 @@
     <div class="sidenav">
       <div class='ticket'>
         <h2 style="padding: 20px 0 50px"> Shopping Cart ({{this.counter}})</h2>
-        <div >
+        <div style="font-size:12px">
           <ul id='list' v-for="(item, index) in this.cart" :key="index">
             <li>
               <span><small style='font-family: DejaVuSansMono-Oblique'>{{item.category}}</small><br> {{item.title}}</span>
@@ -30,12 +30,22 @@
               <span>Delivery Charges</span><span>{{(delivery).toFixed(2)}}</span>
             </li>
             <li><span></span>
-              <span>Total</span><span><small style="font-family:DejaVuSansMono-Bold; font-size:16px;margin-right:0.313rem  ">$</small>{{(total)}}</span>
+              <span>Total</span><span><small style="font-family:DejaVuSansMono-Bold; font-size:16px;margin-right:0.313rem  ">&#8358;</small>{{(total)}}</span>
             </li>
           </ul>
+      <button id="order" @click="showForm" v-if="!show">🛒Check Out</button>
       </div>
       </div>
-      <button id="order" @click="account">🛒Check Out</button>
+          <div class="log" v-if="show">
+            <div id="row">
+              <input type="text" id="name" placeholder="Firstname Lastname">
+              <!-- <input type="password" id="pass" placeholder="Password"> -->
+              <input type="text" id="email" placeholder="Email">
+              <input type="text" id="address" placeholder="Address">
+              <input type="text" id="phone" placeholder="Phone">
+              </div>
+              <div id="submit">Proceed to Payment </div>
+          </div>
     </div>
     </div>
     </transition>
@@ -63,7 +73,8 @@ export default {
         delivery: 0.1
       },
       counter: 0,
-      cart: []
+      cart: [],
+      show: false
     }
   },
   computed: {
@@ -97,7 +108,9 @@ export default {
             this.cart.splice(index, 1)
               localStorage.setItem('menu', JSON.stringify(this.cart))
           }
+          this.counter = this.cart.length
       // });
+      // window.location.reload();
       }
     },
     increase(i){
@@ -119,9 +132,12 @@ export default {
     closeModal(){
       this.$emit('close')
     },
-    account(){
-      this.$router.push({name: 'Account'})
+    showForm(){
+      this.show = true
     }
+    // account(){
+    //   this.$router.push({name: 'Account'})
+    // }
   }
 }
 </script>
@@ -144,7 +160,7 @@ export default {
     /* display: none; */
 }
 .sidenav{
-        font-size: 80%;
+        /* font-size: 80%; */
         background-color: #fff;
         max-width: 500px;
         width: 450px;
@@ -197,6 +213,9 @@ export default {
   height: auto;
   margin: auto;
 }
+ul li:hover{
+  background: #F5F5F5;
+}
   ul#list{
     max-width: 500px;
     /* padding: 20px 0; */
@@ -221,7 +240,7 @@ ul#list >li >span{
 }
 ul#list li span#price{
   text-align: right;
-  flex: 35%;
+  flex: 25%;
 }
 ul#list li span:nth-child(1){
   font-family: DejaVuSansMono-Bold;
@@ -241,7 +260,7 @@ ul#sum >li >span{
    text-align: right;
 }
 div#modifier{
-    flex: 25%;
+    flex: 35%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -279,27 +298,73 @@ div#modifier  span#delete:hover{
     background: #ff00001f;
 }
 button#order{
-     margin-top: 30px;
-    width: 100%;
-    max-width: 500px;
-    height: 30px;
     border: none;
     outline: none;
-    padding: .625rem 0.938rem;
-    background: #ffa12f;
-    border-radius: 5px;
-    border: 1px solid #ffa12f;
-    transition: .4s;
-    font-weight: bold;
+    transition: all .4s;
     font-size: 12px;
-    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    border: 1px solid #f4b05d;
+    margin: 10px auto;
+    background: #F79B2B;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
 }
 button#order:hover{
   border: 1px solid #ffa12f;
   background: transparent;
 }
+        div.log{
+           /* display: none; */
+            /* animation: slideup .3s ease; */
+            transition: all .3s ease
+        }
+        div.log.show{
+            display: block;
+        }
+        @keyframes slideup{}
+        div#row{
+          display: grid;
+          grid-template-columns: 50% 50%
+        }
+        #phone, #pass, #name, #email, #address{
+                width: 90%;
+                height: 48px;
+                border: none;
+                border-bottom: 1px solid #999;
+                margin: 10px auto;
+                padding: 0 10px;
+                box-sizing: border-box;
+                position: relative;
 
+        }
+        input{
+          border: none;
+          outline: none;
+        }
+        input:focus{
+          border: none;
+          outline: none;
+        }
+        #submit{
+                width: 100%;
+                height: 48px;
+                line-height: 48px;
+                border: 1px solid #f4b05d;
+                margin: 10px auto;
+                background: #F79B2B;
+                color: #000;
+                font-weight: bold;
+                font-size: 12px;
+                cursor: pointer;
+        }
+        #submit:hover{
+          border: 1px solid #ffa12f;
+          background: transparent;
+        }
 </style>
