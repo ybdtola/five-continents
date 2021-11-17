@@ -14,11 +14,10 @@
                 </div>
                 <div class="card-details">
                     <div class="card-title" >{{menu.title}}</div>
-                        <div class="card-price">${{menu.price}}</div>
+                        <div class="card-price">&#8358;{{menu.price}}</div>
                             <div class="card-text">{{menu.text}}</div>
                                 <button  v-if="!menu.cart" class="cart active" @click="menu.cart =true, addToCart(JSON.parse(JSON.stringify(menu)))">ADD TO CART</button>
                                 <button v-else class="cart"  style='cursor:not-allowed'>IN CART</button>
-                            <!-- </div> -->
                     </div>
                 </div>
             </div>
@@ -31,7 +30,6 @@
 </template>
 
 <script>
-// import Counter from '../components/Counter.vue'
 import Navbar from '../components/Navbar.vue'
 import HeroBanner from '../components/HeroBanner.vue'
 import Footer from '../components/Footer.vue'
@@ -41,14 +39,10 @@ import img3 from '../assets/img/c.jpg'
 import img4 from '../assets/img/d.jpg'
 import img5 from '../assets/img/e.jpg'
 import img6 from '../assets/img/f.jpg'
-// import Counter from './Counter.vue'
 export default {
-    // name: 'Products',
     components: {
-        // Counter,
         HeroBanner,
         Navbar,
-        // Products,
         Footer
     },
     data(){
@@ -58,7 +52,7 @@ export default {
                     id: 1, 
                     category: "Lunch",
                     title: "Fried Rice & Chicken",
-                    price: 35.99,
+                    price: 350.99,
                     img: img1,
                     text:  "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
                     quantity: 1,
@@ -68,7 +62,7 @@ export default {
                     id: 2, 
                     category: "Vegetable",
                     title: "Country Delight",
-                    price: 45.99,
+                    price: 450.99,
                     img: img2,
                     text:  "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     quantity: 1,
@@ -78,7 +72,7 @@ export default {
                     id: 3, 
                     category: "Dessert",
                     title: "Pizza",
-                    price: 55.99,
+                    price: 550.99,
                     img: img3,
                     text:  "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     quantity: 1,
@@ -88,7 +82,7 @@ export default {
                     id: 4, 
                     category: "Dessert",
                     title: "American Apple",
-                    price: 65.99,
+                    price: 650.99,
                     img: img4,
                     text:  "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
                     quantity: 1,
@@ -98,7 +92,7 @@ export default {
                     id: 5, 
                     category: "Breakfast",
                     title: "Milk",
-                    price: 1.99,
+                    price: 100.99,
                     img: img5,
                     text:  "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     quantity: 1,
@@ -108,7 +102,7 @@ export default {
                     id: 6, 
                     category: "Shakes",
                     title: "Coffee",
-                    price: 0.99,
+                    price: 70.99,
                     img: img6,
                     text:  "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     quantity: 1,
@@ -116,7 +110,6 @@ export default {
                 }
             ],
             count_data: 0,
-            // counter
             countCart: 0
         }
     },
@@ -130,6 +123,9 @@ export default {
             }
             cart.push(menu);
             localStorage.setItem('menu', JSON.stringify(cart))
+                // let match = cart.find(product =>  product.id == menu.id)
+                    // console.log(product.id, menu.id);
+                // console.log(match.id);
             this.count_data = cart.length
             this.updateCart
         },
@@ -140,16 +136,14 @@ export default {
                }else{
                    cart = []
                }
-               cart.forEach((item, index) => {
+               cart.forEach((item, index) => { 
                    this.menus.forEach((menu, index) => {
                        if(item.id == menu.id){
                            this.menus.cart = true
                        }
                    })
                })
-            //     const records = JSON.parse(localStorage.getItem('menu'));
             this.countCart = cart.length;
-            //    console.log(cart); 
         },
         NoInCart(){
                   if(JSON.parse(localStorage.getItem('menu')).length > 0){
@@ -163,34 +157,12 @@ export default {
                     localStorage.setItem('menu', '[]')
                     }
                 }
-        //  getMenu(){
-        //     const records = JSON.parse(localStorage.getItem('menu'));
-        //     this.countCart = records.length;
-        // }
     },
     
     created(){
         this.setCart()
         this.updateCart
         this.NoInCart()
-        // this.getMenu
-        /* const updateCart = () => {
-            let cart = []
-               if(JSON.parse(localStorage.getItem('menu'))){
-                   cart = JSON.parse(localStorage.getItem('menu'))
-               }else{
-                   cart = []
-               }
-               cart.forEach((item, index) => {
-                   this.menus.forEach((menu, index) => {
-                       if(item.id == menu.id){
-                           this.menus.cart = true
-                       }
-                   })
-               })
-            //    console.log(cart); 
-        } */
-        // return updateCart
     }
 }
 </script>
@@ -303,7 +275,7 @@ div > button.cart{
     font-family: DejaVuSansMono-Bold;
     border: none;
     outline: none;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     padding: 5px 10px;
     background: #ffa12f;
     letter-spacing: .1em;
