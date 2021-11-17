@@ -40,12 +40,11 @@ export default {
     },
     toggleModal(){
       this.showModal = false
-
+      window.location.reload();
     }
   },
    created(){
-        
-        this.getMenu()
+      this.getMenu()
     }
 }
 </script>
