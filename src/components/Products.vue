@@ -34,74 +34,9 @@ export default{
 }
 </script>
 <style scoped>
-    section{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 32px;
-    max-width: 1000px;
-    margin: auto;
-    padding: 0 1.5rem;
-    margin-bottom: 5%;
-    margin-top: 3%;
-}
+  
 
-.card-body{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 32px;
-    display: flex;
-    justify-content: center;
-    padding: 20px 0 0;
-}
-.card{
-    max-width: 450px;
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-    border: 1px solid #ccc;
-}
-.card-image{
-    position: relative;
-    width: 50%;
-    height: 150px;
-    margin-right: 8px;
-    overflow: hidden;
-}
-.card-image img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: all .3s ease-in .2s;
-}
-.card:hover .card-image img{
-    transform: scale(1.2);
-}
-.card-details{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    justify-content: space-between;
-    font-size: 12px;
-    padding: 10px;
-}
-.card-details .card-title{
-    padding-right: 1vw;
-    font-family: DejaVuSansMono-Bold;
-    text-align: left;
-}
-.card-price{
-    display: flex;
-    justify-content: flex-end;
-    color: #f87b07;
-    font-family: DejaVuSansMono-Bold;
-    font-style: italic;
-    font-size: 1.3em;
-    padding-bottom: 10px;
-}
-.card-text{
-    line-height: 1.5;
-    text-align: left;
-}
+
 /* div > button.cart{
     font-family: DejaVuSansMono-Bold;
     border: none;
