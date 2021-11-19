@@ -2,14 +2,14 @@
    <div id="nav">
     <div id='nav-center'>
       <div id='logo'>
-        <h4>FIVE CONTINENTS</h4>
+        <h4>*FIVE CONTINENTS*</h4>
       </div>
       <div id='router-links'>
       </div>
       <div id='account'>
         <router-link to="/">Home</router-link>
         <!-- <router-link to="/cart">Cart🛒{{count}}</router-link> -->
-        <a @click="openModal">🛒Cart({{count}})</a>
+        <a @click="openModal">🛒{{count}}</a>
       </div>
     </div>
   </div>
@@ -71,7 +71,7 @@ export default {
 
 }
 div#logo h4{
-  font-family: DejaVuSansMono-Bold;
+  font-family: FredokaOne-Regular;
   color: #f4b05d;
   letter-spacing: .2em;
   line-height: 2;
