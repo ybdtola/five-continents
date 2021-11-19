@@ -5,7 +5,7 @@
   <div class="backdrop" @click.self="closeModal" v-if="open">
     <div class="sidenav">
       <div class='ticket'>
-        <h2 style="padding: 20px 0 50px"> Shopping Cart ({{this.counter}})</h2>
+        <h2 style="padding: 20px 0 50px"> Order Summary ({{this.counter}})</h2>
         <div style="font-size:12px">
           <ul id='list' v-for="(item, index) in this.cart" :key="index">
             <li>
@@ -40,9 +40,9 @@
             <div id="row">
               <input type="text" id="name" placeholder="Firstname Lastname">
               <!-- <input type="password" id="pass" placeholder="Password"> -->
-              <input type="text" id="email" placeholder="Email">
+              <input type="email" id="email" placeholder="Email">
               <input type="text" id="address" placeholder="Address">
-              <input type="text" id="phone" placeholder="Phone">
+              <input type="tel" id="phone" placeholder="Phone">
               </div>
               <div id="submit">Proceed to Payment </div>
           </div>
@@ -156,7 +156,7 @@ export default {
     height: 100%;
     width: 100%;
     background-color: rgba(0,0,0,0.5);
-    z-index: 1;
+    z-index: 99;
     /* display: none; */
 }
 .sidenav{
@@ -174,7 +174,7 @@ export default {
         /* height: -moz-calc(100%); */
         padding-bottom: 60px;
         background-color: #fff;
-        z-index: 2;
+        z-index: 100;
         overflow-y: auto;
         will-change: transform;
         -webkit-backface-visibility: hidden;
@@ -237,13 +237,14 @@ ul#list:nth-child(even) li{
 ul#list >li >span{
   text-align: left;
   flex: 40%;
+  font-family: FredokaOne-Regular;
 }
 ul#list li span#price{
   text-align: right;
   flex: 25%;
 }
 ul#list li span:nth-child(1){
-  font-family: DejaVuSansMono-Bold;
+  font-family: FredokaOne-Regular;
 }
 ul#sum > li{
     position: relative;
@@ -255,7 +256,7 @@ ul#sum > li{
     justify-content: end;
 }
 ul#sum >li >span{
-   font-family: DejaVuSansMono-Bold;
+   font-family: FredokaOne-Regular;
    flex: 50%;
    text-align: right;
 }
@@ -264,6 +265,7 @@ div#modifier{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    
 }
 div#modifier span{
   width: 30px;
@@ -276,6 +278,7 @@ div#modifier span{
     flex: none!important;
   cursor: pointer;
   transition: background .3s;
+  font-family: FredokaOne-Regular;
 }
 div#modifier span:hover{
   background: #f1f1f1;
@@ -367,4 +370,10 @@ button#order:hover{
           border: 1px solid #ffa12f;
           background: transparent;
         }
+        @media screen and (max-width: 375px){
+    .sidenav{
+        width:350px;
+        max-width: 350px;
+    }
+}
 </style>
