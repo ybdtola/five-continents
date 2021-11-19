@@ -16,3 +16,7 @@
     font-family: "DejaVuSansMono-Oblique";
     src: url("./fonts/DejaVuSansMono-Oblique.ttf")  format("truetype");
   }
+@font-face {
+    font-family: "FredokaOne-Regular";
+    src: url("./fonts/FredokaOne-Regular.ttf")  format("truetype");
+  }
