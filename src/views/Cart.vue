@@ -1,9 +1,9 @@
 <template>
 <!-- <Navbar :count="this.counter" /> -->
     <!-- <div class="container"> -->
-<transition name="slide">      
-  <div class="backdrop" @click.self="closeModal" v-if="open">
-    <div class="sidenav">
+<!-- <transition name="slide">       -->
+  <div class="backdrop" @click.self="closeModal" v-show="open">
+    <div class="sidenav" :class="{closesidenav : notActive}">
       <div class='ticket'>
         <h2 style="padding: 20px 0 50px"> Order Summary ({{this.counter}})</h2>
         <div style="font-size:12px">
@@ -38,17 +38,28 @@
       </div>
           <div class="log" v-if="show">
             <div id="row">
-              <input type="text" id="name" placeholder="Firstname Lastname">
+              <input type="text" id="name" placeholder="John Doe" v-model="full_name" required>
               <!-- <input type="password" id="pass" placeholder="Password"> -->
-              <input type="email" id="email" placeholder="Email">
-              <input type="text" id="address" placeholder="Address">
-              <input type="tel" id="phone" placeholder="Phone">
+              <input type="email" id="email" placeholder="johndoe@gmail.com" v-model="email" required>
+              <input type="text" id="address" placeholder="1, John Street, Lagos" required>
+              <input type="tel" id="phone" placeholder="08025587890" required>
+              <input type="hidden" id="amount" v-model="total">
               </div>
-              <div id="submit">Proceed to Payment </div>
+              <!-- <button id="submit" type="button" @click="payWithPaystack">Proceed to Payment </button> -->
+              <paystack
+              buttonClass="'button-class btn btn-primary'"
+              buttonText="Proceed To Payment"
+              :amount="total * 100"
+              :email="email"
+              :publicKey="PUBLIC_KEY"
+              :reference="reference"
+              :onSuccess="onSuccessfulPayment"
+              :onCancel="onCancelledPayment"
+          >Proceed to payment</paystack>
           </div>
     </div>
     </div>
-    </transition>
+    <!-- </transition> -->
       <!-- <Footer /> -->
 </template>
 
@@ -56,12 +67,11 @@
 // import Footer from '../components/Footer.vue'
 // import Counter from '../components/Counter.vue'
 // import Navbar from '../components/Navbar.vue'
+import paystack from 'vue3-paystack'
 export default {
   name: 'Cart',
  components: {
-      // Footer, 
-      // Counter,
-      // Navbar
+    paystack
  },
  props: ['open'],
  
@@ -74,10 +84,15 @@ export default {
       },
       counter: 0,
       cart: [],
-      show: false
+      show: false,
+      email: '',
+      full_name: '',
+      PUBLIC_KEY: "pk_test_8ba4667c96d8669d5a81e0cc2b5cfc9ace68088c",
+      notActive: false
     }
   },
   computed: {
+
     sumTotal(){
       let t = 0;
       this.cart.forEach((item) => {
@@ -90,6 +105,14 @@ export default {
     },
     total(){
       return (this.sumTotal + this.delivery).toFixed(2)
+    },
+    reference() {
+      let text = "";
+      let possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (let i = 0; i < 10; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      return text;
     }
   },
   created(){
@@ -130,10 +153,17 @@ export default {
       }
     },
     closeModal(){
+      this.notActive = true
       this.$emit('close')
     },
     showForm(){
       this.show = true
+    },
+    onSuccessfulPayment: function(response) {
+      console.log(response);
+    },
+    onCancelledPayment: function() {
+      console.log("Payment cancelled by user");
     }
     // account(){
     //   this.$router.push({name: 'Account'})
@@ -148,6 +178,7 @@ export default {
   min-height: calc(100vh - 60px);
     margin-bottom: 5%;
 } */
+
 
 .backdrop {
     position: fixed;
@@ -185,7 +216,9 @@ export default {
         animation: easeIn 0.5s;
         /* transition: .3s ease-in; */
 }
-
+.closesidenav{
+  animation: easeOut 0.5s;
+}
 /* .slide-enter-active{  animation: easeIn 0.5s;}
 .slide-leave-active{animation: easeIn 0.5s reverse;} */
 @keyframes easeIn{
@@ -196,6 +229,16 @@ export default {
   100%{
     -webkit-transform: translateX(0%);
         transform: translateX(0%);
+  }
+}
+@keyframes easeOut{
+  0%{
+    -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+  }
+  100%{
+    -webkit-transform: translateX(105%);
+        transform: translateX(105%);
   }
 }
 /* .open{
@@ -231,9 +274,9 @@ display: flex;
 align-items: center;
 flex-wrap: wrap;
 }
-ul#list:nth-child(even) li{
-    /* background-color: #f5f5f5; */
-}
+/* ul#list:nth-child(even) li{
+    background-color: #f5f5f5;
+} */
 ul#list >li >span{
   text-align: left;
   flex: 40%;
@@ -254,6 +297,10 @@ ul#sum > li{
     list-style-type: none;
     display: flex;
     justify-content: end;
+}
+ul#sum > li:nth-last-child(1){
+  border-bottom: 1px solid #999;
+  margin-bottom: 50px;
 }
 ul#sum >li >span{
    font-family: FredokaOne-Regular;
@@ -354,7 +401,25 @@ button#order:hover{
           border: none;
           outline: none;
         }
+        button {
+          outline: none;
+                width: 100%;
+                height: 48px;
+                line-height: 48px;
+                border: 1px solid #f4b05d;
+                margin: 10px auto;
+                background: #F79B2B;
+                color: #000;
+                font-weight: bold;
+                font-size: 12px;
+                cursor: pointer;
+}
+button:hover{
+          border: 1px solid #ffa12f;
+          background: transparent;
+        }
         #submit{
+                outline: none;
                 width: 100%;
                 height: 48px;
                 line-height: 48px;
