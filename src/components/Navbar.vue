@@ -9,7 +9,7 @@
       <div id='account'>
         <router-link to="/">Home</router-link>
         <!-- <router-link to="/cart">Cart🛒{{count}}</router-link> -->
-        <a @click="openModal">🛒{{count}}</a>
+        <a @click="openModal"><font-awesome-icon icon="shopping-cart" /> {{count}}</a>
       </div>
     </div>
   </div>
